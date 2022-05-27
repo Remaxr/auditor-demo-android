@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.effects.FlxSkewedSprite;
 import Controls.KeyboardScheme;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -21,11 +22,12 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-#if newgrounds
-import io.newgrounds.NG;
-#end
 import lime.app.Application;
 import openfl.Assets;
+
+#if windows
+import Discord.DiscordClient;
+#end
 
 using StringTools;
 
@@ -38,8 +40,14 @@ class TitleState extends MusicBeatState
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
 	var ngSpr:FlxSprite;
+	var ngSpr2:FlxSprite;
 	var actualNG:FlxSprite;
 	var backupMen:FlxSprite;
+	var bglol:FlxSprite;
+	var bgblack:FlxSprite;
+	var bgred:FlxSprite;
+	var fire:FlxSprite;
+	var fire2:FlxSprite;
 
 	var curWacky:Array<String> = [];
 
@@ -47,18 +55,10 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		#end
-		
 		#if polymod
 		//polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
 		#end
 		
-		/*#if sys
-		if (!sys.FileSystem.exists(Sys.getCwd() + "\\assets\\replays"))
-			sys.FileSystem.createDirectory(Sys.getCwd() + "\\assets\\replays");
-		#end*/
 
 		if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = false;
@@ -70,6 +70,15 @@ class TitleState extends MusicBeatState
 			FlxG.save.data.dfjk = false;
 
 		PlayerSettings.init();
+
+		#if windows
+		DiscordClient.initialize();
+
+		Application.current.onExit.add (function (exitCode) {
+			DiscordClient.shutdown();
+		 });
+		 
+		#end
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
@@ -88,32 +97,72 @@ class TitleState extends MusicBeatState
 
 
 		
-		loadingImage = new FlxSprite(0,0).loadGraphic(Paths.image('loadingButNotDone','clown'));
-		loadingDone = new FlxSprite(0,0).loadGraphic(Paths.image('loadingButDone','clown'));
+		loadingImage = new FlxSprite(0,0).loadGraphic(Paths.image('loadingButNotDone','auditor'));
+		loadingDone = new FlxSprite(0,0).loadGraphic(Paths.image('loadingButDone','auditor'));
 		loadingImage.alpha = 0;
 		loadingDone.alpha = 0;
 		add(loadingImage);
 		add(loadingDone);
 
 
-		logoBl = new FlxSprite(-200, -160);
-		logoBl.frames = Paths.getSparrowAtlas('TrickyLogo','clown');
+		
+
+
+		logoBl = new FlxSprite(390, 670);
+		logoBl.frames = Paths.getSparrowAtlas('AuditorLogoFIRE','auditor');
 		logoBl.antialiasing = true;
-		logoBl.animation.addByPrefix('bump', 'Logo', 34);
+		logoBl.animation.addByPrefix('bump', 'logo bumpin', 30);
 		logoBl.animation.play('bump');
-		logoBl.setGraphicSize(Std.int(logoBl.width * 2)); // 0.5
+		logoBl.scale.set(0.67,0.67);
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
-		gfDance = new FlxSprite(FlxG.width * 0.23, FlxG.height * 0.07);
-		gfDance.frames = Paths.getSparrowAtlas('DJ_Tricky','clown');
-		gfDance.animation.addByPrefix('dance', 'mixtape',24, true);
+		gfDance = new FlxSprite(140, -290);
+		gfDance.frames = Paths.getSparrowAtlas('titleaudi','auditor');
+		gfDance.animation.addByPrefix('dance', 'auditortitle',24, true);
 		gfDance.antialiasing = true;
-		gfDance.setGraphicSize(Std.int(gfDance.width * 0.6));
+		gfDance.scale.set(0.67,0.67);
+
+		fire = new FlxSprite(-470, 50);
+		fire.frames = Paths.getSparrowAtlas('firetitle','auditor');
+		fire.animation.addByPrefix('startfire', 'downfire',24, true);
+		fire.antialiasing = true;
+		fire.scale.set(0.67,0.67);
+		//imagine forgetting to make an animation play lol. - nate
+		fire.animation.play('startfire');
+
+		fire2 = new FlxSprite(550, 50);
+		fire2.frames = Paths.getSparrowAtlas('firetitle','auditor');
+		fire2.animation.addByPrefix('startfire', 'downfire',24, true);
+		fire2.antialiasing = true;
+		fire2.scale.set(0.67,0.67);
+		fire2.animation.play('startfire');
+		fire2.flipX = true;
 
 
-		titleText = new FlxSprite(100, FlxG.height * 0.8);
+		
+
+
+		
+		chains = new FlxSprite(90, -180);
+		chains.frames = Paths.getSparrowAtlas('chains','auditor');
+		chains.animation.addByPrefix('move', 'chain',24, true);
+		chains.antialiasing = true;
+		chains.scale.set(0.67,0.67);
+		chains.animation.play('move');
+
+		chains2 = new FlxSprite(835, -180);
+		chains2.frames = Paths.getSparrowAtlas('chains','auditor');
+		chains2.animation.addByPrefix('move', 'chain',24, true);
+		chains2.antialiasing = true;
+		chains2.scale.set(0.67,0.67);
+		chains2.flipX = true;
+		chains2.animation.play('move');
+
+
+
+		titleText = new FlxSprite(135, FlxG.height * 0.8);
 		titleText.frames = Paths.getSparrowAtlas('titleEnter');
 		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
 		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
@@ -143,15 +192,44 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		ngSpr = new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('ThePalsV2','clown'));
+		ngSpr = new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('ThePalsV3','auditor'));
 		ngSpr.visible = false;
 		ngSpr.setGraphicSize(Std.int(ngSpr.width * 1.1));
 		ngSpr.updateHitbox();
 		ngSpr.screenCenter(X);
 		ngSpr.y -= 100;
 		ngSpr.antialiasing = true;
+//
+		bglol = new FlxSprite(0, 0).loadGraphic(Paths.image('FULLRED','auditor'));
+		bglol.scale.set(0.67,0.67);
+		bglol.updateHitbox();
+		bglol.screenCenter(X);
+		bglol.antialiasing = true;
 
-		actualNG= new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('newgrounds_logo','clown'));
+		bgblack = new FlxSprite(0, 0).loadGraphic(Paths.image('blacklight','auditor'));
+		bgblack.scale.set(0.67,0.67);
+		bgblack.updateHitbox();
+		bgblack.screenCenter(X);
+		bgblack.antialiasing = true;
+
+		bgred = new FlxSprite(0, 0).loadGraphic(Paths.image('redlight','auditor'));
+		bgred.scale.set(0.67,0.67);
+		bgred.updateHitbox();
+		bgred.screenCenter(X);
+		bgred.antialiasing = true;
+
+
+
+//
+		ngSpr2 = new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('ThePalsV2','auditor'));
+		ngSpr2.visible = false;
+		ngSpr2.setGraphicSize(Std.int(ngSpr2.width * 1.1));
+		ngSpr2.updateHitbox();
+		ngSpr2.screenCenter(X);
+		ngSpr2.y -= 100;
+		ngSpr2.antialiasing = true;
+
+		actualNG= new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('newgrounds_logo','auditor'));
 		actualNG.visible = false;
 		actualNG.setGraphicSize(Std.int(actualNG.width * 1.1));
 		actualNG.updateHitbox();
@@ -159,7 +237,7 @@ class TitleState extends MusicBeatState
 		actualNG.y -= 70;
 		actualNG.antialiasing = true;
 
-		backupMen= new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('TheBackupMen','clown'));
+		backupMen= new FlxSprite(0, FlxG.height * 0.55).loadGraphic(Paths.image('TheBackupMen','auditor'));
 		backupMen.visible = false;
 		backupMen.setGraphicSize(Std.int(backupMen.width * 1.1));
 		backupMen.updateHitbox();
@@ -196,10 +274,15 @@ class TitleState extends MusicBeatState
 
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
+	var gfhand:FlxSprite;
+
+	var chains:FlxSprite;
+	var chains2:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var loadingImage:FlxSprite;
 	var loadingDone:FlxSprite;
+	
 
 	function startIntro()
 	{
@@ -225,28 +308,45 @@ class TitleState extends MusicBeatState
 			// music.loadStream(Paths.music('freakyMenu'));
 			// FlxG.sound.list.add(music);
 			// music.play();
-			FlxG.sound.playMusic(Paths.music('Tiky_Demce','clown'), 0);
+			FlxG.sound.playMusic(Paths.music('Tiky_Demce','auditor'), 0);
+			
 
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
-			Conductor.changeBPM(139);
+			Conductor.changeBPM(104);
 			
 		}
 
 		persistentUpdate = true;
 
-		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('fourth/bg','clown'));
+		
 		// bg.antialiasing = true;
 		// bg.setGraphicSize(Std.int(bg.width * 0.6));
 		// bg.updateHitbox();
 
-		add(bg);
+        var justblack:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		
+		
+
+		add(bglol);
+		add(bgblack);
+		add(chains);
+		add(chains2);
+		add(bgred);
+		add(fire);
 		add(gfDance);
+		add(fire2);
 		add(logoBl);
+		
+		
+		// add(logoBl);
 		add(titleText);
 		add(credGroup);
 		add(ngSpr);
+		add(ngSpr2);
 		add(actualNG);
 		add(backupMen);
+
+
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -290,7 +390,7 @@ class TitleState extends MusicBeatState
 		else if (!once)
 		{
 			once = true;
-			var snd:FlxSound = new FlxSound().loadEmbedded(Paths.sound('complete','clown'));
+			var snd:FlxSound = new FlxSound().loadEmbedded(Paths.sound('complete','auditor'));
 			snd.play();
 			loadingImage.alpha = 0;
 			loadingDone.alpha = 1;
@@ -337,15 +437,6 @@ class TitleState extends MusicBeatState
 
 		if (pressedEnter && !transitioning && skippedIntro)
 		{
-			#if newgrounds
-			#if !switch
-			NGio.unlockMedal(60960);
-
-			// If it's Friday according to da clock
-			if (Date.now().getDay() == 5)
-				NGio.unlockMedal(61034);
-			#end
-			#end
 
 			titleText.animation.play('press');
 
@@ -366,6 +457,7 @@ class TitleState extends MusicBeatState
 
 		if (pressedEnter && !skippedIntro && CachedFrames.cachedInstance.loaded && canSkip)
 		{
+			FlxG.sound.playMusic(Paths.music('auditorskip','auditor'), 0);
 			skipIntro();
 		}
 
@@ -394,9 +486,14 @@ class TitleState extends MusicBeatState
 		coolText.screenCenter(X);
 		if (yOffset != 0)
 			coolText.y -= yOffset;
-		coolText.y += (textGroup.length * 60) + 200;
 		credGroup.add(coolText);
 		textGroup.add(coolText);
+		
+		FlxTween.tween(coolText,{y: coolText.y + (textGroup.length * 60) + 200},0.4,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
+			{ 
+			}});
+
+
 	}
 
 	function deleteCoolText()
@@ -422,79 +519,84 @@ class TitleState extends MusicBeatState
 
 		switch (curBeat)
 		{
-			case 5:
-				createCoolText(['KadeDev'], 135);
-			// credTextShit.visible = true;
-			case 6:
+			case 1:
+				createCoolText(['Tricky Engine by'], 135);
+			case 2:
+				addMoreText('KadeDev', 135);
+			case 3:
 				addMoreText('Banbuds', 135);
-			case 7:
+			case 4:
 				addMoreText('Cval', 135);
-			case 8:
+			case 5:
 				addMoreText('Rozebud', 135);
+			case 6:
+				deleteCoolText();
+			case 7:
+				addMoreText('WITH HELP FROM', 135);
+			case 8:
+				addMoreText('ICL', 135);
 			case 9:
-				ngSpr.visible = true;
-			// credTextShit.visible = false;
-			// credTextShit.text = 'In association \nwith';
-			// credTextShit.screenCenter();
+				addMoreText('Naive', 135);
 			case 10:
 				deleteCoolText();
 				ngSpr.visible = false;
-				createCoolText(['With help from'], 135);
+				createCoolText(['Auditor Mod Team'], 135);
 			case 11:
-				addMoreText('MORO', 135);
+				addMoreText('JustBruh - sirfitness', 135);
 			case 12:
-				addMoreText('YingYang', 135);
+				addMoreText('Comodo_ - NateTDOM', 135);
 			case 13:
-				addMoreText('Jads', 135);
+				addMoreText('Egg Overlord', 135);
 			case 14:
-				backupMen.visible = true;
+				ngSpr2.visible = true;
 			case 15:
-				deleteCoolText();
-				createCoolText(['Newgrounds']);
-				backupMen.visible = false;
+
 			case 16:
-				addMoreText('is pog');
-				actualNG.visible = true;
-			case 17:
-				actualNG.visible = false;
 				deleteCoolText();
+				ngSpr2.visible = false;
+				curWacky = FlxG.random.getObject(getIntroTextShit());
 				createCoolText([curWacky[0]]);
+			case 17:	
+				addMoreText(curWacky[1]);
 			case 18:
-				addMoreText(curWacky[1]);
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());				
+				createCoolText([curWacky[0]]);
 			case 19:
-				curWacky = FlxG.random.getObject(getIntroTextShit());
-				deleteCoolText();
-				createCoolText([curWacky[0]]);
+				addMoreText(curWacky[1]);
 			case 20:
-				addMoreText(curWacky[1]);
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());				
+				createCoolText([curWacky[0]]);
 			case 21:
-				curWacky = FlxG.random.getObject(getIntroTextShit());
-				deleteCoolText();
-				createCoolText([curWacky[0]]);
+				addMoreText(curWacky[1]);
 			case 22:
-				addMoreText(curWacky[1]);
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);		
 			case 23:
-				curWacky = FlxG.random.getObject(getIntroTextShit());
-				deleteCoolText();
-				createCoolText([curWacky[0]]);
+				addMoreText('SEX WEEK WHEN');
 			case 24:
-				addMoreText(curWacky[1]);
-			case 25:
+				deleteCoolText();
 				curWacky = FlxG.random.getObject(getIntroTextShit());
-				deleteCoolText();
 				createCoolText([curWacky[0]]);
+			case 25:
+				addMoreText(curWacky[1]);	
 			case 26:
-				addMoreText(curWacky[1]);
+				deleteCoolText();
+				curWacky = FlxG.random.getObject(getIntroTextShit());
+				createCoolText([curWacky[0]]);
 			case 27:
-				deleteCoolText();
-				createCoolText(['chicken dance remix']);
+				addMoreText(curWacky[1]);
 			case 28:
-				addMoreText('by Tsuraran');
-			case 30:
 				deleteCoolText();
-				createCoolText(['the drop']);
+				addMoreText('AGENCY');
+			case 29:
+				addMoreText('AGAINST');
+			case 30:
+				addMoreText('HANK');
 			case 31:
-				addMoreText('or smth lol');
+				addMoreText('WIMBLETON');
 			case 32:
 				deleteCoolText();
 				skipIntro();
@@ -508,12 +610,24 @@ class TitleState extends MusicBeatState
 		if (!skippedIntro)
 		{
 			remove(ngSpr);
+			remove(ngSpr2);
 			remove(actualNG);
 			remove(backupMen);
 			PlayerSettings.player1.controls.loadKeyBinds();
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);
 			skippedIntro = true;
+			
+			new FlxTimer().start(0.1, function(tmr:FlxTimer)
+				{
+					
+				
+				FlxTween.tween(logoBl,{y: 380},1.1,{ease: FlxEase.expoInOut, onComplete: function(flxTween:FlxTween) 
+					{ 
+					}});
+
+				});	
+
 		}
 	}
 }

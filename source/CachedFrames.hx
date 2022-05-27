@@ -43,7 +43,7 @@ class CachedFrames
 			return frames;
 
 		frames = new FlxAtlasFrames(graphic);
-		var Description = Assets.getText(Paths.file('images/$xmlName.xml', 'clown'));
+		var Description = Assets.getText(Paths.file('images/$xmlName.xml', 'auditor'));
 
 		var data:Access = new Access(Xml.parse(Description).firstElement());
 
@@ -89,7 +89,7 @@ class CachedFrames
 
     public function load(id:String, path:String)
     {
-        var graph = FlxGraphic.fromAssetKey(Paths.image(path,'clown'));
+        var graph = FlxGraphic.fromAssetKey(Paths.image(path,'auditor'));
         graph.persist = true;
         graph.destroyOnNoUse = false;
         cachedGraphics.set(id,graph);
@@ -103,22 +103,27 @@ class CachedFrames
 
     public function loadFrames()
     {
-        sys.thread.Thread.create(() -> {
-            toBeLoaded.set('sign','fourth/mech/Sign_Post_Mechanic');
-            /*toBeLoaded.set('left','hellclwn/Tricky/Left');
-            toBeLoaded.set('right','hellclwn/Tricky/right');
-            toBeLoaded.set('up','hellclwn/Tricky/Up');
-            toBeLoaded.set('down','hellclwn/Tricky/Down');
-            toBeLoaded.set('idle','hellclwn/Tricky/Idle');*/
-            toBeLoaded.set('grem','fourth/mech/HP GREMLIN');
-            toBeLoaded.set('cln','fourth/Clone');
+        sys.thread.Thread.create(() -> {  
+            toBeLoaded.set('sanford','supremacy/sanford_fight');
+            toBeLoaded.set('deimos','supremacy/deimos_fight');
+            toBeLoaded.set('left','encavmaphobia/Audi/Left');
+            toBeLoaded.set('right','encavmaphobia/Audi/right');
+            toBeLoaded.set('up','encavmaphobia/Audi/Up');
+            toBeLoaded.set('BleatWorkPlzIfuckingwaste3hours','encavmaphobia/Audi/Rage');
+            toBeLoaded.set('down','encavmaphobia/Audi/Down');
+            toBeLoaded.set('idle','encavmaphobia/Audi/Idle');
+            
+            toBeLoaded.set('death','signDeath');
+
             // all the big sprites
+
             var numba = 0;
             for(i in toBeLoaded.keys())
             {
                 load(i,toBeLoaded.get(i));
                 numba++;
                 progress = HelperFunctions.truncateFloat(numba / Lambda.count(toBeLoaded) * 100,2);
+                trace(progress);
             }
             trace('loaded everythin');
             loaded = true;

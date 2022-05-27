@@ -22,10 +22,11 @@ class Note extends FlxSprite
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
 	public var prevNote:Note;
+	public var noteType:Int = 0;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
-
+	public var isFading:Bool = false;
 	public var noteScore:Float = 1;
 
 	public static var swagWidth:Float = 160 * 0.7;
@@ -36,13 +37,14 @@ class Note extends FlxSprite
 
 	public var rating:String = "shit";
 
-	public function new(_strumTime:Float, _noteData:Int, ?_prevNote:Note, ?sustainNote:Bool = false)
+	public function new(_strumTime:Float, _noteData:Int, ?_prevNote:Note, ?sustainNote:Bool = false, ?noteType:Int = 0)
 	{
 		super();
 
 		if (_prevNote == null)
 			_prevNote = this;
 
+		this.noteType = noteType;
 		prevNote = _prevNote;
 		isSustainNote = sustainNote;
 
@@ -67,15 +69,25 @@ class Note extends FlxSprite
 
 		var daStage:String = PlayState.curStage;
 
-		switch (daStage)
-		{
-			case 'school' | 'schoolEvil':
-				loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
-
-				animation.add('greenScroll', [6]);
-				animation.add('redScroll', [7]);
-				animation.add('blueScroll', [5]);
-				animation.add('purpleScroll', [4]);
+		switch (PlayState.SONG.noteStyle)
+			{
+				case 'pixel':
+					loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels','exe'), true, 17, 17);
+ 
+					if (noteType == 2)
+						{
+							animation.add('greenScroll', [22]);
+							animation.add('redScroll', [23]);
+							animation.add('blueScroll', [21]);
+							animation.add('purpleScroll', [20]);
+						}
+					else
+						{
+							animation.add('greenScroll', [6]);
+							animation.add('redScroll', [7]);
+							animation.add('blueScroll', [5]);
+							animation.add('purpleScroll', [4]);
+						}
 
 				if (isSustainNote)
 				{
@@ -92,10 +104,67 @@ class Note extends FlxSprite
 					animation.add('bluehold', [1]);
 
 				}
+				case 'majinNOTES':
+
+					frames = Paths.getSparrowAtlas('Broken_Notes', 'auditor');
+						var fuckingSussy = Paths.getSparrowAtlas('Broken_Notes', 'auditor');
+						for(amogus in fuckingSussy.frames)
+							{
+								this.frames.pushFrame(amogus);
+							}
+ 
+						switch(noteType)
+						{
+							case 2:
+							{
+								frames = Paths.getSparrowAtlas('Broken_Notes', 'auditor');
+								animation.addByPrefix('greenScroll', 'green0');
+								animation.addByPrefix('redScroll', 'red0');
+								animation.addByPrefix('blueScroll', 'blue0');
+								animation.addByPrefix('purpleScroll', 'purple0');
+ 
+								animation.addByPrefix('purpleholdend', 'pruple end hold'); //PRUPLE Its not typo in the programming, but it is a typo in adobe animate hence why its in da xml like dat
+								animation.addByPrefix('greenholdend', 'green hold end');
+								animation.addByPrefix('redholdend', 'red hold end');
+								animation.addByPrefix('blueholdend', 'blue hold end');
+ 
+								animation.addByPrefix('purplehold', 'purple hold piece');
+								animation.addByPrefix('greenhold', 'green hold piece');
+								animation.addByPrefix('redhold', 'red hold piece');
+								animation.addByPrefix('bluehold', 'blue hold piece');
+ 
+								setGraphicSize(Std.int(width * 0.7));
+								
+								updateHitbox();
+								antialiasing = true;
+							}
+							default:
+							{
+								frames = Paths.getSparrowAtlas('Broken_Notes', 'auditor');
+								animation.addByPrefix('greenScroll', 'green0');
+								animation.addByPrefix('redScroll', 'red0');
+								animation.addByPrefix('blueScroll', 'blue0');
+								animation.addByPrefix('purpleScroll', 'purple0');
+ 
+								animation.addByPrefix('purpleholdend', 'pruple end hold'); //PRUPLE Its not typo in the programming, but it is a typo in adobe animate hence why its in da xml like dat
+								animation.addByPrefix('greenholdend', 'green hold end');
+								animation.addByPrefix('redholdend', 'red hold end');
+								animation.addByPrefix('blueholdend', 'blue hold end');
+ 
+								animation.addByPrefix('purplehold', 'purple hold piece');
+								animation.addByPrefix('greenhold', 'green hold piece');
+								animation.addByPrefix('redhold', 'red hold piece');
+								animation.addByPrefix('bluehold', 'blue hold piece');
+ 
+								setGraphicSize(Std.int(width * 0.7));
+								updateHitbox();
+								antialiasing = true;
+							}
+						}
 
 				if(burning){
 					
-					loadGraphic(Paths.image('NOTE_fire-pixel', "clown"), true, 21, 31);
+					loadGraphic(Paths.image('NOTE_fire-pixel', "auditor"), true, 21, 31);
 					
 					animation.add('greenScroll', [6, 7, 6, 8], 8);
 					animation.add('redScroll', [9, 10, 9, 11], 8);
@@ -107,7 +176,8 @@ class Note extends FlxSprite
 
 				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 				updateHitbox();
-
+            
+				
 			default:
 				frames = Paths.getSparrowAtlas('NOTE_assets');
 
@@ -116,7 +186,7 @@ class Note extends FlxSprite
 				animation.addByPrefix('blueScroll', 'blue0');
 				animation.addByPrefix('purpleScroll', 'purple0');
 
-				animation.addByPrefix('purpleholdend', 'pruple end hold');
+				animation.addByPrefix('purpleholdend', 'pruple hold end');
 				animation.addByPrefix('greenholdend', 'green hold end');
 				animation.addByPrefix('redholdend', 'red hold end');
 				animation.addByPrefix('blueholdend', 'blue hold end');
@@ -126,10 +196,17 @@ class Note extends FlxSprite
 				animation.addByPrefix('redhold', 'red hold piece');
 				animation.addByPrefix('bluehold', 'blue hold piece');
 
+
+
+
+
+
+
+				
 				if(burning){
 					if (daStage == 'auditorHell')
 					{
-						frames = Paths.getSparrowAtlas('fourth/mech/ALL_deathnotes', "clown");
+						frames = Paths.getSparrowAtlas('fourth/mech/ALL_deathnotes', "auditor");
 						animation.addByPrefix('greenScroll', 'Green Arrow');
 						animation.addByPrefix('redScroll', 'Red Arrow');
 						animation.addByPrefix('blueScroll', 'Blue Arrow');
@@ -138,7 +215,7 @@ class Note extends FlxSprite
 					}
 					else
 					{
-						frames = Paths.getSparrowAtlas('NOTE_fire', "clown");
+						frames = Paths.getSparrowAtlas('NOTE_fire', "auditor");
 						if(!FlxG.save.data.downscroll){
 							animation.addByPrefix('blueScroll', 'blue fire');
 							animation.addByPrefix('greenScroll', 'green fire');
@@ -242,7 +319,7 @@ class Note extends FlxSprite
 		if (mustPress)
 		{
 			// The * 0.5 is so that it's easier to hit them too late, instead of too early
-			if (!burning)
+			if (!burning || noteType != 2)
 			{
 				if (strumTime > Conductor.songPosition - Conductor.safeZoneOffset
 					&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))

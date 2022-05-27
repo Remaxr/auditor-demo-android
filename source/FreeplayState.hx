@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.effects.chainable.FlxOutlineEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import AlphabetTricky.TrickyAlphaCharacter;
 import flixel.system.FlxSound;
@@ -15,6 +16,11 @@ import lime.utils.Assets;
 
 using StringTools;
 
+
+#if windows
+import Discord.DiscordClient;
+#end
+
 class FreeplayState extends MusicBeatState
 {
 
@@ -26,7 +32,7 @@ class FreeplayState extends MusicBeatState
 
 	var debug:Bool = false;
 
-	var songFour:TrickyButton;
+
 	
 	public static var diffText:AlphabetTricky;
 
@@ -41,44 +47,31 @@ class FreeplayState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
-		songs.push(new TrickyButton(80,120,'menu/freeplay/Improbable Outset Button','menu/freeplay/Improbable Outset Confirm',selectSong, 'Improbable-Outset', -30));
-		songs.push(new TrickyButton(80,240,'menu/freeplay/Madness Button','menu/freeplay/Madness Confirm',selectSong, 'Madness', -30));
-		songs.push(new TrickyButton(80,360,'menu/freeplay/Hellclown Button','menu/freeplay/Hellclown Confirm',selectSong, 'Hellclown', -30));
-		songFour = new TrickyButton(300,420,'menu/freeplay/Expurgation Button','menu/freeplay/Expurgation Confirm',selectSong, 'expurgation', 0, 15);
 
-		songFour.spriteOne = new FlxSprite(songFour.trueX + songFour.tweenX, songFour.trueY + songFour.tweenY).loadGraphic(Paths.image('menu/freeplay/Expurgation Button',"clown"), true, 800, 200);
-        songFour.spriteTwo = new FlxSprite(songFour.trueX + songFour.tweenX, songFour.trueY + songFour.tweenY).loadGraphic(Paths.image('menu/freeplay/Expurgation Confirm',"clown"), true, 800, 200);
-        songFour.spriteTwo.alpha = 0;
-		songFour.spriteOne.animation.add("static", [0, 1, 2, 3], 12, true);
-		songFour.spriteTwo.animation.add("static", [0, 1, 2, 3], 12, true);
-		songFour.spriteOne.animation.play("static");
-		songFour.spriteTwo.animation.play("static");
+        songs.push(new TrickyButton(25,120,'menu/freeplay/Test Confirm','menu/freeplay/Test Button',selectSong, 'encavmaphobia', -30));
+		songs.push(new TrickyButton(75,240,'menu/freeplay/Improbable Outset Button','menu/freeplay/Improbable Outset Confirm',selectSong, 'supremacy', -30));
+		// Bruh, I removed this for the Demo Build - nate // songs.push(new TrickyButton(80,360,'menu/freeplay/Madness Button','menu/freeplay/Madness Confirm',selectSong, 'gateway', -30));
+		
 
-		songFour.spriteOne.screenCenter(X);
-		songFour.trueX = songFour.spriteOne.x;
+		#if windows
+		 // Updating Discord Rich Presence
+		 DiscordClient.changePresence("In the Freeplay Menu", null);
+		 #end
+        
 			
-		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','clown'));
+		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','auditor'));
 		add(bg);
-		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','clown'));
+		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','auditor'));
 		hedge.setGraphicSize(Std.int(hedge.width * 0.65));
 		add(hedge);
-		var shade:FlxSprite = new FlxSprite(-205,-100).loadGraphic(Paths.image('menu/freeplay/Shadescreen','clown'));
+		var shade:FlxSprite = new FlxSprite(-205,-100).loadGraphic(Paths.image('menu/freeplay/Shadescreen','auditor'));
 		shade.setGraphicSize(Std.int(shade.width * 0.65));
 		add(shade);
-		var bars:FlxSprite = new FlxSprite(-225,-395).loadGraphic(Paths.image('menu/freeplay/theBox','clown'));
+		var bars:FlxSprite = new FlxSprite(-225,-395).loadGraphic(Paths.image('menu/freeplay/theBox','auditor'));
 		bars.setGraphicSize(Std.int(bars.width * 0.65));
 		add(bars);
 
-		if (FlxG.save.data.beatenHard || debug) // FlxG.save.data.beatenHard || debug
-			songs.push(songFour);
-		else
-		{
-			var locked:FlxSprite = new FlxSprite(songFour.trueX, songFour.trueY).loadGraphic(Paths.image('menu/freeplay/Expurgation Locked','clown'), true, 900, 200);
-			locked.animation.add("static", [0, 1, 2, 3], 12, true);
-			locked.animation.play("static");
-			locked.screenCenter(X);
-			add(locked);
-		}
+		
 
 		for (i in songs)
 			{
@@ -100,7 +93,7 @@ class FreeplayState extends MusicBeatState
 
 		add(diffAndScore);
 
-		var menuShade:FlxSprite = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","clown"));
+		var menuShade:FlxSprite = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","auditor"));
 		menuShade.setGraphicSize(Std.int(menuShade.width * 0.7));
 		add(menuShade);
 
@@ -109,6 +102,8 @@ class FreeplayState extends MusicBeatState
 		#if mobileC
 		addVirtualPad(FULL, A_B);
 		#end
+
+
 	}
 
 	function diffGet()
@@ -191,12 +186,12 @@ class FreeplayState extends MusicBeatState
 
 			if (controls.RIGHT_R)
 			{
-				FlxG.sound.play(Paths.sound('Hover','clown'));
+				FlxG.sound.play(Paths.sound('Hover','auditor'));
 				diff += 1;
 			}
 			if (controls.LEFT_R)
 			{
-				FlxG.sound.play(Paths.sound('Hover','clown'));
+				FlxG.sound.play(Paths.sound('Hover','auditor'));
 				diff -= 1;
 			}
 
@@ -249,7 +244,7 @@ class FreeplayState extends MusicBeatState
 				}
 			
 	
-			if (controls.ACCEPT && !selectedSmth)
+				if (controls.ACCEPT && !selectedSmth)
 			{
 				selectedSmth = true;
 				songs[selectedIndex].select();

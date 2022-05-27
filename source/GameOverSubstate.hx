@@ -30,8 +30,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
 		add(camFollow);
 
-		FlxG.sound.play(Paths.sound('BF_Deathsound','clown'));
-		FlxG.sound.play(Paths.sound('Micdrop','clown'));
+		FlxG.sound.play(Paths.sound('BF_Deathsound','auditor'));
+		FlxG.sound.play(Paths.sound('Micdrop','auditor'));
 		Conductor.changeBPM(200);
 
 		// FlxG.camera.followLerp = 1;
@@ -51,6 +51,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		camcontrol.bgColor.alpha = 0;
 		_virtualpad.cameras = [camcontrol];
 		#end
+
 	}
 
 	var playedMic:Bool = false;
@@ -74,7 +75,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
 		{
-			FlxG.sound.playMusic(Paths.music('gameOver','clown'));
+			FlxG.sound.playMusic(Paths.music('gameOver','auditor'));
 			bf.playAnim('deathLoop', true);
 		}
 
@@ -105,7 +106,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			isEnding = true;
 			bf.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
-			FlxG.sound.play(Paths.music('gameOverEnd','clown'));
+			FlxG.sound.play(Paths.music('gameOverEnd','auditor'));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()

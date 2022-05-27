@@ -62,7 +62,7 @@ class ChartingState extends MusicBeatState
 	var GRID_SIZE:Int = 40;
 
 	var dummyArrow:FlxSprite;
-
+	public static var defaultnoteStyle:String;
 	var curRenderedNotes:FlxTypedGroup<Note>;
 	var curRenderedSustains:FlxTypedGroup<FlxSprite>;
 
@@ -121,6 +121,7 @@ class ChartingState extends MusicBeatState
 				needsVoices: true,
 				player1: 'bf',
 				player2: 'dad',
+				noteStyle: 'normal',
 				speed: 1,
 				validScore: false
 			};
@@ -200,6 +201,8 @@ class ChartingState extends MusicBeatState
 			FlxG.sound.music.volume = vol;
 		};
 
+	
+
 		var saveButton:FlxButton = new FlxButton(110, 8, "Save", function()
 		{
 			saveLevel();
@@ -224,7 +227,7 @@ class ChartingState extends MusicBeatState
 		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(10, 65, 1, 1, 1, 339, 0);
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
-
+        var noteStyles:Array<String> = CoolUtil.coolTextFile(Paths.txt('noteStyleList'));
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
 		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
@@ -237,6 +240,13 @@ class ChartingState extends MusicBeatState
 		{
 			_song.player2 = characters[Std.parseInt(character)];
 		});
+
+		var noteStyleDropDown = new FlxUIDropDownMenu(10, 300, FlxUIDropDownMenu.makeStrIdLabelArray(noteStyles, true), function(noteStyle:String)
+			{
+				_song.noteStyle = noteStyles[Std.parseInt(noteStyle)];
+				defaultnoteStyle = noteStyles[Std.parseInt(noteStyle)];
+			});
+		noteStyleDropDown.selectedLabel = _song.noteStyle;
 
 		player2DropDown.selectedLabel = _song.player2;
 

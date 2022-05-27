@@ -256,7 +256,7 @@ class TrickyAlphaCharacter extends FlxSprite
 	public function new(x:Float, y:Float)
 	{
 		super(x, y);
-		var tex = Paths.getSparrowAtlas('menu/Alphabet','clown');
+		var tex = Paths.getSparrowAtlas('menu/Alphabet','auditor');
 		frames = tex;
 
 		antialiasing = true;

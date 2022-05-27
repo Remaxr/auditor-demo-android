@@ -50,7 +50,7 @@ class TrickyTextButton extends FlxSprite
     {
         if (playSound)
         {
-            var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("Hover","clown"));
+            var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("Hover","auditor"));
             sound.play();
         }
         spriteTwo.alpha = 1;
@@ -65,7 +65,7 @@ class TrickyTextButton extends FlxSprite
 
     public function select()
     {
-        var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("confirm","clown"));
+        var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("confirm","auditor"));
         sound.play();
         new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
