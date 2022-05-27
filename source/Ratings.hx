@@ -85,10 +85,7 @@ class Ratings
         }
 
         if (accuracy == 0)
-            {
-                ranking = "N/A";
-                
-            }
+            ranking = "N/A";
 		else if(FlxG.save.data.botplay)
 			ranking = "BotPlay";
 
@@ -133,9 +130,9 @@ class Ratings
     {
         return 
         (FlxG.save.data.npsDisplay ? "NPS: " + nps + (!FlxG.save.data.botplay ? " | " : "") : "") + (!FlxG.save.data.botplay ?	// NPS Toggle
-        "SCORE:" + (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score) + 									// Score
-        " | COMBO BREAKS:" + PlayState.misses + 																				// Misses/Combo Breaks
-        " | ACCURACY:" + (FlxG.save.data.botplay ? "    N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %") +  				// Accuracy
+        "Score:" + (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score) + 									// Score
+        " | Combo Breaks:" + PlayState.misses + 																				// Misses/Combo Breaks
+        " | Accuracy:" + (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %") +  				// Accuracy
         " | " + GenerateLetterRank(accuracy) : ""); 																			// Letter Rank
     }
 }

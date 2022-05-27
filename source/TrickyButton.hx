@@ -40,8 +40,8 @@ class TrickyButton extends FlxSprite
 
         pognt = pogn;
 
-        spriteOne = new FlxSprite(trueX + tweenX, trueY + tweenY).loadGraphic(Paths.image(pngOne,"auditor"));
-        spriteTwo = new FlxSprite(trueX + tweenX, trueY + tweenY).loadGraphic(Paths.image(pngTwo,"auditor"));
+        spriteOne = new FlxSprite(trueX + tweenX, trueY + tweenY).loadGraphic(Paths.image(pngOne,"clown"));
+        spriteTwo = new FlxSprite(trueX + tweenX, trueY + tweenY).loadGraphic(Paths.image(pngTwo,"clown"));
 
         spriteOne.antialiasing = true;
         spriteTwo.antialiasing = true;
@@ -60,7 +60,7 @@ class TrickyButton extends FlxSprite
     {
         if (playSound)
         {
-            var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("Hover","auditor"));
+            var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("Hover","clown"));
             sound.play();
         }
         spriteTwo.alpha = 1;
@@ -81,7 +81,7 @@ class TrickyButton extends FlxSprite
 
     public function select()
     {
-        var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("confirm","auditor"));
+        var sound:FlxSound = new FlxSound().loadEmbedded(Paths.sound("confirm","clown"));
         sound.play();
         new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{

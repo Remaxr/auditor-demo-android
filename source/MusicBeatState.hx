@@ -1,9 +1,5 @@
 package;
 
-#if windows
-import Discord.DiscordClient;
-#end
-
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.Lib;
@@ -48,7 +44,7 @@ class MusicBeatState extends FlxUIState
 		controls.addAndroidBack();
 		#end
 	}
-
+	
 	override function destroy() {
 		controls.removeFlxInput(trackedinputs);
 

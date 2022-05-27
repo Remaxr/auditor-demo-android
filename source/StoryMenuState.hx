@@ -15,10 +15,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 
-#if windows
-import Discord.DiscordClient;
-#end
-
 using StringTools;
 
 class StoryMenuState extends MusicBeatState
@@ -26,18 +22,39 @@ class StoryMenuState extends MusicBeatState
 	var scoreText:FlxText;
 
 	var weekData:Array<Dynamic> = [
-		['encavmaphobia', 'supremacy', 'gateway']
+		['Tutorial'],
+		['Bopeebo', 'Fresh', 'Dadbattle'],
+		['Spookeez', 'South', "Monster"],
+		['Pico', 'Philly', "Blammed"],
+		['Satin-Panties', "High", "Milf"],
+		['Cocoa', 'Eggnog', 'Winter-Horrorland'],
+		['Senpai', 'Roses', 'Thorns'],
+		['Improbable-Outset', 'Madness', 'Hellclown']
 	];
 	var curDifficulty:Int = 1;
 
-	public static var weekUnlocked:Array<Bool> = [true];
+	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true, true];
 
 	var weekCharacters:Array<Dynamic> = [
-		['', 'bf', 'gf']
+		['dad', 'bf', 'gf'],
+		['dad', 'bf', 'gf'],
+		['spooky', 'bf', 'gf'],
+		['pico', 'bf', 'gf'],
+		['mom', 'bf', 'gf'],
+		['parents-christmas', 'bf', 'gf'],
+		['senpai', 'bf', 'gf'],
+		['trickyMask', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = [
-		"Madness"
+		"",
+		"Daddy Dearest",
+		"Spooky Month",
+		"PICO",
+		"MOMMY MUST MURDER",
+		"RED SNOW",
+		"hating simulator ft. moawling",
+		"Circus Clown",
 	];
 
 	var txtWeekTitle:FlxText;
@@ -61,17 +78,11 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
-
-		#if windows
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Story Mode Menu", null);
-		#end
-		
-		trans = new FlxSprite(-150,-75);
-		trans.frames = Paths.getSparrowAtlas('screenburn','auditor');
+		trans = new FlxSprite(-300,-760);
+		trans.frames = Paths.getSparrowAtlas('Jaws','clown');
 		trans.antialiasing = true;
 
-		trans.animation.addByPrefix("Close","burn", 24, false);
+		trans.animation.addByPrefix("Close","Jaws smol", 24, false);
 		
 		trace(trans.animation.frames);
 
@@ -103,7 +114,7 @@ class StoryMenuState extends MusicBeatState
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
-		
+		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
 		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
@@ -134,7 +145,7 @@ class StoryMenuState extends MusicBeatState
 			if (!weekUnlocked[i])
 			{
 				var lock:FlxSprite = new FlxSprite(weekThing.width + 10 + weekThing.x);
-				
+				lock.frames = ui_tex;
 				lock.animation.addByPrefix('lock', 'lock');
 				lock.animation.play('lock');
 				lock.ID = i;
@@ -168,6 +179,12 @@ class StoryMenuState extends MusicBeatState
 				case 'parents-christmas':
 					weekCharacterThing.setGraphicSize(Std.int(weekCharacterThing.width * 0.9));
 					weekCharacterThing.updateHitbox();
+				case 'trickyMask':
+					trace('AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH');
+					weekCharacterThing.y -= 150;
+					weekCharacterThing.x -= 60;
+					weekCharacterThing.setGraphicSize(Std.int(weekCharacterThing.width * 3.5));
+					weekCharacterThing.updateHitbox();
 			}
 
 			grpWeekCharacters.add(weekCharacterThing);
@@ -179,14 +196,14 @@ class StoryMenuState extends MusicBeatState
 		trace("Line 124");
 
 		leftArrow = new FlxSprite(grpWeekText.members[0].x + grpWeekText.members[0].width + 10, grpWeekText.members[0].y + 10);
-
+		leftArrow.frames = ui_tex;
 		leftArrow.animation.addByPrefix('idle', "arrow left");
 		leftArrow.animation.addByPrefix('press', "arrow push left");
 		leftArrow.animation.play('idle');
 		difficultySelectors.add(leftArrow);
 
 		sprDifficulty = new FlxSprite(leftArrow.x + 130, leftArrow.y);
-	
+		sprDifficulty.frames = ui_tex;
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
 		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
@@ -196,7 +213,7 @@ class StoryMenuState extends MusicBeatState
 		difficultySelectors.add(sprDifficulty);
 
 		rightArrow = new FlxSprite(sprDifficulty.x + sprDifficulty.width + 50, leftArrow.y);
-
+		rightArrow.frames = ui_tex;
 		rightArrow.animation.addByPrefix('idle', 'arrow right');
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
 		rightArrow.animation.play('idle');
@@ -332,14 +349,14 @@ class StoryMenuState extends MusicBeatState
 					if (curWeek == 7 && trans.animation.curAnim == null)
 					{
 						trans.animation.play("Close");
-						var snd = new FlxSound().loadEmbedded(Paths.sound('swipe','auditor'));
+						var snd = new FlxSound().loadEmbedded(Paths.sound('swipe','clown'));
 						snd.play();
 					}
 					if (curWeek == 7)
 					{
-						if (trans.animation.frameIndex == 43)
+						if (trans.animation.frameIndex == 18)
 						{
-							var snd = new FlxSound().loadEmbedded(Paths.sound('clink','auditor'));
+							var snd = new FlxSound().loadEmbedded(Paths.sound('clink','clown'));
 							snd.play();
 							transOut = null;
 							trans.animation.pause();
@@ -350,8 +367,6 @@ class StoryMenuState extends MusicBeatState
 					}
 					else
 					{
-						
-
 						LoadingState.loadAndSwitchState(new PlayState(), true);
 					}
 				});
@@ -451,6 +466,9 @@ class StoryMenuState extends MusicBeatState
 			case 'dad':
 				grpWeekCharacters.members[0].offset.set(120, 200);
 				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1));
+			case 'trickyMask':
+				grpWeekCharacters.members[0].offset.set(195, 180);
+				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1.6));
 				
 			default:
 				grpWeekCharacters.members[0].offset.set(100, 100);

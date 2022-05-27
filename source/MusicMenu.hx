@@ -6,18 +6,18 @@ import flixel.FlxSprite;
 class MusicMenu extends MusicBeatState
 {
 
-    var tapeComodo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Cassette Comodo','auditor')); //rozebud
-    var tapeSirf:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Cassette Sirfitness','auditor'));
-    var tapeYing:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Cassette YingYang','auditor'));
+    var tapeRaze:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Cassette Rozebud','clown'));
+    var tapeJads:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Cassette Jads','clown'));
+    var tapeYing:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Cassette YingYang','clown'));
 
-    // THIS CODE IS BAD I'M SORRY
+    // THIS CODE IS AUTISTIC I'M SORRY
     // - kade
 
-    // liteartly don't ever do this, i'm doing it because i'm stupid.
+    // liteartly don't ever do this, i'm doing it because i'm retarded.
     // - kade
 
     var theMen:Array<TrickyTextButton> = [];
-    var comodoSongs:Array<TrickyTextButton> = [];
+    var rozeSongs:Array<TrickyTextButton> = [];
     var exp:TrickyTextButton;
     var yingSongs:Array<TrickyTextButton> = [];
 
@@ -25,8 +25,8 @@ class MusicMenu extends MusicBeatState
 
     public static var currentSong:String = "none";
     public static var selectedIndex:Int = 0;
-    public static var comodoSelected:Int = 0;
-    public static var sirfSelected:Int = -1;
+    public static var rozeSelected:Int = 0;
+    public static var jadsSelected:Int = -1;
     public static var yingSelected:Int = -1;
 
     var selecting:Bool = false;
@@ -45,32 +45,32 @@ class MusicMenu extends MusicBeatState
         debug = true;
         #end
 
-        theMen.push(new TrickyTextButton(0,0,"COMODO","COMODO",48,comodo));
+        theMen.push(new TrickyTextButton(0,0,"ROZEBUD","ROZEBUD",48,roze));
 
         theMen[0].spriteOne.screenCenter();
         theMen[0].spriteOne.y += 30;
 
-        // comodo songs
+        // roze songs
 
-        comodoSongs.push(new TrickyTextButton(0,0,"ENCAVMAPHOBIA","ENCAVMAPHOBIA",28,selectSongComodo,"ENCAVMAPHOBIA"));
-        var thing = comodoSongs[0];
+        rozeSongs.push(new TrickyTextButton(0,0,"IMPROBABLE-OUTSET","IMPROBABLE-OUTSET",28,selectSongRoze,"IMPROBABLE-OUTSET"));
+        var thing = rozeSongs[0];
         thing.spriteOne.screenCenter();
         thing.spriteOne.y += 110;
         thing.spriteOne.x -= 290;
-        comodoSongs.push(new TrickyTextButton(0,0,"SUPREMACY","SUPREMACY",28,selectSongComodo,"SUPREMACY"));
-        var thing = comodoSongs[1];
+        rozeSongs.push(new TrickyTextButton(0,0,"MADNESS","MADNESS",28,selectSongRoze,"MADNESS"));
+        var thing = rozeSongs[1];
         thing.spriteOne.screenCenter();
         thing.spriteOne.y += 110;
-        comodoSongs.push(new TrickyTextButton(0,0,"?????????","?????????",28,selectSongComodo,"?????????"));
-        var thing = comodoSongs[2];
+        rozeSongs.push(new TrickyTextButton(0,0,"HELLCLOWN","HELLCLOWN",28,selectSongRoze,"HELLCLOWN"));
+        var thing = rozeSongs[2];
         thing.spriteOne.screenCenter();
         thing.spriteOne.y += 110;
         thing.spriteOne.x += 315;
         if (FlxG.save.data.beatenHard || debug)
         {
-            theMen.push(new TrickyTextButton(0,0,"SIRFITNESS","SIRFITNESS",48,sirf));
+            theMen.push(new TrickyTextButton(0,0,"JADS","JADS",48,jads));
 
-            trace(sirf);
+            trace(jads);
 
             theMen[1].spriteOne.screenCenter();
             theMen[1].spriteOne.y += 220;
@@ -91,52 +91,56 @@ class MusicMenu extends MusicBeatState
 
         // ying songs
 
-
-        yingSongs.push(new TrickyTextButton(0,0,"MAIN MENU","MAIN MENU",28,selectSongYing, "YANG-MENU"));
+        yingSongs.push(new TrickyTextButton(0,0,"HONKERS","HONKERS",28,selectSongYing, "YANG-HONKERS"));
         var thing = yingSongs[0];
+        thing.spriteOne.screenCenter();
+        thing.spriteOne.x += 200;
+        thing.spriteOne.y += 285;
+        yingSongs.push(new TrickyTextButton(0,0,"MAIN MENU","MAIN MENU",28,selectSongYing, "YANG-MENU"));
+        var thing = yingSongs[1];
         thing.spriteOne.screenCenter();
         thing.spriteOne.x += 218;
         thing.spriteOne.y += 343;
 
-        var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','auditor'));
+        var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','clown'));
 		add(bg);
-		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','auditor'));
+		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','clown'));
 		hedge.setGraphicSize(Std.int(hedge.width * 0.65));
 		add(hedge);
         
-        var repeatLine:FlxBackdrop = new FlxBackdrop(Paths.image('menu/music/MusicRepeatLines','auditor'),1,1,false,true);
+        var repeatLine:FlxBackdrop = new FlxBackdrop(Paths.image('menu/music/MusicRepeatLines','clown'),1,1,false,true);
         repeatLine.velocity.set(0,14);
         repeatLine.screenCenter();
         repeatLine.x += 440;
         add(repeatLine);
 
-        var menu:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Red Box Music Menu','auditor'));
+        var menu:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/music/Red Box Music Menu','clown'));
         menu.screenCenter();
         menu.setGraphicSize(Std.int(menu.width * 0.66));
         menu.y += 180;
         add(menu);
 
-        tapeComodo.screenCenter();
-        tapeSirf.screenCenter();
+        tapeRaze.screenCenter();
+        tapeJads.screenCenter();
         tapeYing.screenCenter();
 
-        tapeSirf.antialiasing = true;
-        tapeComodo.antialiasing = true;
+        tapeJads.antialiasing = true;
+        tapeRaze.antialiasing = true;
         tapeYing.antialiasing = true;
 
-        tapeComodo.setGraphicSize(Std.int(tapeComodo.width * 0.6));
-        tapeSirf.setGraphicSize(Std.int(tapeSirf.width * 0.6));
+        tapeRaze.setGraphicSize(Std.int(tapeRaze.width * 0.6));
+        tapeJads.setGraphicSize(Std.int(tapeJads.width * 0.6));
         tapeYing.setGraphicSize(Std.int(tapeYing.width * 0.6));
 
-        tapeComodo.y -= 165;
-        tapeSirf.y -= 165;
+        tapeRaze.y -= 165;
+        tapeJads.y -= 165;
         tapeYing.y -= 165;
 
         
 
 
-        circleOne = new FlxSprite().loadGraphic(Paths.image("menu/music/Circle1","auditor"));
-        circleTwo = new FlxSprite().loadGraphic(Paths.image("menu/music/Circle2","auditor"));
+        circleOne = new FlxSprite().loadGraphic(Paths.image("menu/music/Circle1","clown"));
+        circleTwo = new FlxSprite().loadGraphic(Paths.image("menu/music/Circle2","clown"));
 
         circleOne.antialiasing = true;
         circleTwo.antialiasing = true;
@@ -155,16 +159,16 @@ class MusicMenu extends MusicBeatState
         add(circleOne);
         add(circleTwo);
 
-        add(tapeComodo);
-        add(tapeSirf);
+        add(tapeRaze);
+        add(tapeJads);
         add(tapeYing);
 
         var indicator:FlxSprite;
 
         if (FlxG.save.data.beatenHard || debug)
-            indicator =  new FlxSprite().loadGraphic(Paths.image("menu/music/MusicIndicationLines","auditor"));
+            indicator =  new FlxSprite().loadGraphic(Paths.image("menu/music/MusicIndicationLines","clown"));
         else 
-            indicator =  new FlxSprite().loadGraphic(Paths.image("menu/music/noJadsLine","auditor"));
+            indicator =  new FlxSprite().loadGraphic(Paths.image("menu/music/noJadsLine","clown"));
 
         indicator.screenCenter();
         indicator.setGraphicSize(Std.int(indicator.width * 0.66));
@@ -180,7 +184,7 @@ class MusicMenu extends MusicBeatState
 				add(i.spriteTwo);
 			}
 
-        for (i in comodoSongs)
+        for (i in rozeSongs)
 			{
 				add(i);
 				add(i.spriteOne);
@@ -196,7 +200,7 @@ class MusicMenu extends MusicBeatState
 
         if (FlxG.save.data.beatenHard || debug)
         {
-            exp = new TrickyTextButton(0,0,"DEATH THEME","DEATH THEME",24,selectSongSirf,"SIRF-DEATHMUSIC");
+            exp = new TrickyTextButton(0,0,"EXPURGATION","EXPURGATION",24,selectSongJads,"EXPURGATION");
             add(exp);
             add(exp.spriteOne);
             add(exp.spriteTwo);
@@ -206,34 +210,34 @@ class MusicMenu extends MusicBeatState
             exp.spriteOne.y += 305;
             exp.spriteOne.x -= 290;
 
-            trace(selectSongSirf);
+            trace(selectSongJads);
 
             trace(exp.spriteOne);
         }
 
 
-		var menuShade:FlxSprite = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","auditor"));
+		var menuShade:FlxSprite = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","clown"));
 		menuShade.setGraphicSize(Std.int(menuShade.width * 0.7));
 		add(menuShade);
 
         theMen[selectedIndex].highlight();
-        if (comodoSelected != -1)
+        if (rozeSelected != -1)
         {
-            tapeComodo.visible = true;
+            tapeRaze.visible = true;
             tapeYing.visible = false;
-            tapeSirf.visible = false;
-            comodoSongs[comodoSelected].highlight();
-            currentSelected = comodoSongs[comodoSelected];
+            tapeJads.visible = false;
+            rozeSongs[rozeSelected].highlight();
+            currentSelected = rozeSongs[rozeSelected];
             trace(currentSelected.pognt);
-            updateSong(comodoSongs[comodoSelected].pognt);
+            updateSong(rozeSongs[rozeSelected].pognt);
         }
         if (FlxG.save.data.beatenHard || debug)
         {
-            if (sirfSelected != -1)
+            if (jadsSelected != -1)
             {
-                tapeComodo.visible = false;
+                tapeRaze.visible = false;
                 tapeYing.visible = false;
-                tapeSirf.visible = true;
+                tapeJads.visible = true;
                 exp.highlight();
                 currentSelected = exp;
                 updateSong(exp.pognt);
@@ -241,16 +245,17 @@ class MusicMenu extends MusicBeatState
         }
         if (yingSelected != -1)
         {
-            tapeComodo.visible = false;
+            tapeRaze.visible = false;
             tapeYing.visible = true;
-            tapeSirf.visible = false;
+            tapeJads.visible = false;
             yingSongs[yingSelected].highlight();
             currentSelected = yingSongs[yingSelected];
             updateSong(yingSongs[yingSelected].pognt);
         }
+
         #if mobileC
 		addVirtualPad(FULL, A_B);
-		#end       
+		#end
     }
 
     function updateSong(song:String)
@@ -264,27 +269,20 @@ class MusicMenu extends MusicBeatState
                 // HARD CODED
                 switch(song)
                 {
-				case "SIRF-DEATHMUSIC":
-					if (Vocals != null)
-					{
-						Vocals.stop();
-						Vocals = null;
-					}
-                    FlxG.sound.playMusic(Paths.music('gameOver','auditor'));
-				case "YANG-HONKERS":
-					if (Vocals != null)
-					{
-						Vocals.stop();
-						Vocals = null;
-					}
-					FlxG.sound.playMusic(Paths.sound("honkers", "auditor"));     
+                    case "YANG-HONKERS":
+                        if (Vocals != null)
+                        {
+                            Vocals.stop();
+                            Vocals = null;
+                        }
+                        FlxG.sound.playMusic(Paths.sound("honkers","clown"));
                     case "YANG-MENU":
                         if (Vocals != null)
                         {
                             Vocals.stop();
                             Vocals = null;
                         }
-                        FlxG.sound.playMusic(Paths.music("nexus_other","auditor"));
+                        FlxG.sound.playMusic(Paths.music("nexus_other","clown"));
                     default:
                         Vocals = new FlxSound().loadEmbedded(Paths.voices(song.toLowerCase()),true);
                         
@@ -309,24 +307,24 @@ class MusicMenu extends MusicBeatState
             Vocals.play();
         }
 
-    function selectSongComodo()
+    function selectSongRoze()
     {
-        updateSong(comodoSongs[comodoSelected].pognt);
+        updateSong(rozeSongs[rozeSelected].pognt);
         circleOne.angle = 0;
         circleTwo.angle = 0;
-        tapeComodo.visible = true;
+        tapeRaze.visible = true;
         tapeYing.visible = false;
-        tapeSirf.visible = false;
+        tapeJads.visible = false;
     }
 
-    function selectSongSirf()
+    function selectSongJads()
     {
         updateSong(exp.pognt);
         circleOne.angle = 0;
         circleTwo.angle = 0;
-        tapeComodo.visible = false;
+        tapeRaze.visible = false;
         tapeYing.visible = false;
-        tapeSirf.visible = true;
+        tapeJads.visible = true;
     }
 
     function selectSongYing()
@@ -334,27 +332,27 @@ class MusicMenu extends MusicBeatState
         updateSong(yingSongs[yingSelected].pognt);
         circleOne.angle = 0;
         circleTwo.angle = 0;
-        tapeComodo.visible = false;
+        tapeRaze.visible = false;
         tapeYing.visible = true;
-        tapeSirf.visible = false;
+        tapeJads.visible = false;
     }
 
-    function comodo()
+    function roze()
     {
         selecting = true;
-        comodoSelected = 0;
-        sirfSelected = -1;
+        rozeSelected = 0;
+        jadsSelected = -1;
         yingSelected = -1;
         currentSelected.unHighlight();
-        comodoSongs[comodoSelected].highlight();
-        currentSelected = comodoSongs[comodoSelected];
+        rozeSongs[rozeSelected].highlight();
+        currentSelected = rozeSongs[rozeSelected];
     }
 
-    function sirf()
+    function jads()
     {
         selecting = true;
-        sirfSelected = 0;
-        comodoSelected = -1;
+        jadsSelected = 0;
+        rozeSelected = -1;
         yingSelected = -1;
         trace(currentSelected.pognt);
         currentSelected.unHighlight();
@@ -366,8 +364,8 @@ class MusicMenu extends MusicBeatState
     {
         selecting = true;
         yingSelected = 0;
-        comodoSelected = -1;
-        sirfSelected = -1;
+        rozeSelected = -1;
+        jadsSelected = -1;
         currentSelected.unHighlight();
         yingSongs[yingSelected].highlight();
         currentSelected = yingSongs[yingSelected];
@@ -448,53 +446,53 @@ class MusicMenu extends MusicBeatState
         }
         else
         {
-            if (comodoSelected != -1)
+            if (rozeSelected != -1)
             {
                 if (controls.RIGHT_R)
                     {
-                        if (comodoSelected + 1 < comodoSongs.length)
+                        if (rozeSelected + 1 < rozeSongs.length)
                         {
                             currentSelected.unHighlight();
-                            comodoSongs[comodoSelected + 1].highlight();
-                            comodoSelected++;
-                            currentSelected = comodoSongs[comodoSelected];
-                            trace('selected ' + comodoSelected);
+                            rozeSongs[rozeSelected + 1].highlight();
+                            rozeSelected++;
+                            currentSelected = rozeSongs[rozeSelected];
+                            trace('selected ' + rozeSelected);
                         }
                         else
                         {
                             currentSelected.unHighlight();
-                            comodoSelected = 0;
-                            comodoSongs[comodoSelected].highlight();
-                            currentSelected = comodoSongs[comodoSelected];
-                            trace('selected ' + comodoSelected);
+                            rozeSelected = 0;
+                            rozeSongs[rozeSelected].highlight();
+                            currentSelected = rozeSongs[rozeSelected];
+                            trace('selected ' + rozeSelected);
                         }
                     }
                     if (controls.LEFT_R)
                     {
-                        if (comodoSelected > 0)
+                        if (rozeSelected > 0)
                         {
                             currentSelected.unHighlight();
-                            comodoSongs[comodoSelected - 1].highlight();
-                            comodoSelected--;
-                            currentSelected = comodoSongs[comodoSelected];
-                            trace('selected ' + comodoSelected);
+                            rozeSongs[rozeSelected - 1].highlight();
+                            rozeSelected--;
+                            currentSelected = rozeSongs[rozeSelected];
+                            trace('selected ' + rozeSelected);
                         }
                         else
                         {
                             currentSelected.unHighlight();
-                            comodoSongs[comodoSongs.length - 1].highlight();
-                            comodoSelected = comodoSongs.length - 1;
-                            currentSelected = comodoSongs[comodoSelected];
-                            trace('selected ' + comodoSelected);
+                            rozeSongs[rozeSongs.length - 1].highlight();
+                            rozeSelected = rozeSongs.length - 1;
+                            currentSelected = rozeSongs[rozeSelected];
+                            trace('selected ' + rozeSelected);
                         }
                     }
                 
                 if (controls.ACCEPT)
                 {
-                    comodoSongs[comodoSelected].select();
+                    rozeSongs[rozeSelected].select();
                 }
             }
-            if (sirfSelected != -1)
+            if (jadsSelected != -1)
             {
                 if (FlxG.keys.justPressed.ENTER)
                 {
@@ -543,7 +541,7 @@ class MusicMenu extends MusicBeatState
                         }
                     }
                 
-                    if (controls.ACCEPT)
+                if (controls.ACCEPT)
                 {
                     yingSongs[yingSelected].select();
                 }

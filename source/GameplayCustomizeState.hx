@@ -1,14 +1,8 @@
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.text.FlxText;
 import flixel.math.FlxMath;
 import flixel.FlxCamera;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
-
 #if windows
-import Discord.DiscordClient;
 import sys.thread.Thread;
 #end
 
@@ -38,11 +32,6 @@ class GameplayCustomizeState extends MusicBeatState
     private var camHUD:FlxCamera;
     
     public override function create() {
-
-        #if windows
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Customizing Gameplay", null);
-		#end
 
 		Conductor.changeBPM(102);
 		persistentUpdate = true;
@@ -76,7 +65,7 @@ class GameplayCustomizeState extends MusicBeatState
 
 		add(camFollow);
 
-		FlxG.camera.follow(camFollow, LOCKON, 0.10);
+		FlxG.camera.follow(camFollow, LOCKON, 0.01);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = 0.9;
 		FlxG.camera.focusOn(camFollow.getPosition());

@@ -16,6 +16,9 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+#if newgrounds
+import io.newgrounds.NG;
+#end
 import lime.app.Application;
 import lime.utils.Assets;
 import flixel.math.FlxMath;
@@ -59,15 +62,15 @@ class KeyBindMenu extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','auditor'));
+		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','clown'));
 		add(bg);
-		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','auditor'));
+		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','clown'));
 		hedge.setGraphicSize(Std.int(hedge.width * 0.65));
 		add(hedge);
-		var shade:FlxSprite = new FlxSprite(-205,-100).loadGraphic(Paths.image('menu/freeplay/Shadescreen','auditor'));
+		var shade:FlxSprite = new FlxSprite(-205,-100).loadGraphic(Paths.image('menu/freeplay/Shadescreen','clown'));
 		shade.setGraphicSize(Std.int(shade.width * 0.65));
 		add(shade);
-		var bars:FlxSprite = new FlxSprite(-225,-395).loadGraphic(Paths.image('menu/freeplay/theBox','auditor'));
+		var bars:FlxSprite = new FlxSprite(-225,-395).loadGraphic(Paths.image('menu/freeplay/theBox','clown'));
 		bars.setGraphicSize(Std.int(bars.width * 0.65));
 		add(bars);
 
@@ -87,7 +90,7 @@ class KeyBindMenu extends MusicBeatState
         keyWarning.alpha = 0;
         add(keyWarning);
 
-		var menuShade:FlxSprite = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","auditor"));
+		var menuShade:FlxSprite = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","clown"));
 		menuShade.setGraphicSize(Std.int(menuShade.width * 0.7));
 		add(menuShade);
 
@@ -106,26 +109,26 @@ class KeyBindMenu extends MusicBeatState
             case "select":
                 if (FlxG.keys.justPressed.UP)
 				{
-					FlxG.sound.play(Paths.sound('Hover','auditor'));
+					FlxG.sound.play(Paths.sound('Hover','clown'));
 					changeItem(-1);
 				}
 
 				if (FlxG.keys.justPressed.DOWN)
 				{
-					FlxG.sound.play(Paths.sound('Hover','auditor'));
+					FlxG.sound.play(Paths.sound('Hover','clown'));
 					changeItem(1);
 				}
 
                 if (FlxG.keys.justPressed.ENTER){
-                    FlxG.sound.play(Paths.sound('Hover','auditor'));
+                    FlxG.sound.play(Paths.sound('Hover','clown'));
                     state = "input";
                 }
                 else if(FlxG.keys.justPressed.ESCAPE){
-                    FlxG.sound.play(Paths.sound('confirm','auditor'));
+                    FlxG.sound.play(Paths.sound('confirm','clown'));
                     quit();
                 }
 				else if (FlxG.keys.justPressed.BACKSPACE){
-                    FlxG.sound.play(Paths.sound('confirm','auditor'));
+                    FlxG.sound.play(Paths.sound('confirm','clown'));
                     reset();
                 }
 
@@ -139,7 +142,7 @@ class KeyBindMenu extends MusicBeatState
                 if(FlxG.keys.justPressed.ESCAPE){
                     keys[curSelected] = tempKey;
                     state = "select";
-                    FlxG.sound.play(Paths.sound('confirm','auditor'));
+                    FlxG.sound.play(Paths.sound('confirm','clown'));
                 }
                 else if(FlxG.keys.justPressed.ENTER){
                     addKey(defaultKeys[curSelected]);
@@ -247,11 +250,11 @@ class KeyBindMenu extends MusicBeatState
 
         if(shouldReturn){
             keys[curSelected] = r;
-            FlxG.sound.play(Paths.sound('Hover','auditor'));
+            FlxG.sound.play(Paths.sound('Hover','clown'));
         }
         else{
             keys[curSelected] = tempKey;
-            FlxG.sound.play(Paths.sound('confirm','auditor'));
+            FlxG.sound.play(Paths.sound('confirm','clown'));
             keyWarning.alpha = 1;
             warningTween.cancel();
             warningTween = FlxTween.tween(keyWarning, {alpha: 0}, 0.5, {ease: FlxEase.circOut, startDelay: 2});

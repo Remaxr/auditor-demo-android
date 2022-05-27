@@ -48,6 +48,7 @@ class OptionsMenu extends MusicBeatState
 			new CustomControls("edit a control"),
 			new About("about android port")
 		])
+
 		
 	];
 
@@ -67,15 +68,15 @@ class OptionsMenu extends MusicBeatState
 
 	override function create()
 	{
-		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','auditor'));
+		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/freeplay/RedBG','clown'));
 		add(bg);
-		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','auditor'));
+		var hedge:FlxSprite = new FlxSprite(-810,-335).loadGraphic(Paths.image('menu/freeplay/hedge','clown'));
 		hedge.setGraphicSize(Std.int(hedge.width * 0.65));
 		add(hedge);
-		var shade:FlxSprite = new FlxSprite(-205,-100).loadGraphic(Paths.image('menu/freeplay/Shadescreen','auditor'));
+		var shade:FlxSprite = new FlxSprite(-205,-100).loadGraphic(Paths.image('menu/freeplay/Shadescreen','clown'));
 		shade.setGraphicSize(Std.int(shade.width * 0.65));
 		add(shade);
-		var bars:FlxSprite = new FlxSprite(-225,-395).loadGraphic(Paths.image('menu/freeplay/theBox','auditor'));
+		var bars:FlxSprite = new FlxSprite(-225,-395).loadGraphic(Paths.image('menu/freeplay/theBox','clown'));
 		bars.setGraphicSize(Std.int(bars.width * 0.65));
 		add(bars);
 
@@ -105,14 +106,13 @@ class OptionsMenu extends MusicBeatState
 		offsetPog.setFormat("tahoma-bold.ttf",42,FlxColor.RED);
 		add(offsetPog);
 
-		menuShade = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","auditor"));
+		menuShade = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","clown"));
 		menuShade.setGraphicSize(Std.int(menuShade.width * 0.7));
 		add(menuShade);
 
 		#if mobileC
 		addVirtualPad(UP_DOWN, A_B);
 		#end
-
 
 		super.create();
 	}
@@ -246,7 +246,7 @@ class OptionsMenu extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				FlxG.sound.play(Paths.sound("confirm",'auditor'));
+				FlxG.sound.play(Paths.sound("confirm",'clown'));
 				if (isCat)
 				{
 					if (currentSelectedCat.getOptions()[curSelected].press()) {
@@ -311,7 +311,7 @@ class OptionsMenu extends MusicBeatState
 		// NGio.logEvent("Fresh");
 		#end
 		
-		FlxG.sound.play(Paths.sound("Hover",'auditor'));
+		FlxG.sound.play(Paths.sound("Hover",'clown'));
 
 		currentOptions[curSelected].color = FlxColor.fromRGB(255,0,0);
 

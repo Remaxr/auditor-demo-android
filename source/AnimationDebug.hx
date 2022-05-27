@@ -18,7 +18,6 @@ using StringTools;
 class AnimationDebug extends FlxState
 {
 	var dad:Character;
-	var bf:Boyfriend;
 	var dadBG:Character;
 	//var char:Character;
 	var textAnim:FlxText;
@@ -31,7 +30,6 @@ class AnimationDebug extends FlxState
 
 	private var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
-	private var camGame2:FlxCamera;
 
 	var flippedChars:Array<String> = ["pico"];
 
@@ -47,12 +45,10 @@ class AnimationDebug extends FlxState
 		//openfl.Lib.current.stage.frameRate = 144;
 
 		camGame = new FlxCamera();
-		camGame2 = new FlxCamera(500);
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.reset(camGame2);
 		FlxG.cameras.add(camHUD);
 
 		FlxCamera.defaultCameras = [camGame];
