@@ -1,30 +1,19 @@
 package;
-import lime.app.Application;
-import openfl.utils.Future;
-import openfl.media.Sound;
-import flixel.system.FlxSound;
-#if sys
-import smTools.SMFile;
-import sys.FileSystem;
-import sys.io.File;
-#end
-import Song.SwagSong;
-import flixel.input.gamepad.FlxGamepad;
+
+import Controls.KeyboardScheme;
+import Controls.Control;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
-
-
-
 #if sys
-import smTools.SMFile;
-import sys.FileSystem;
+import sys.io.File;
 #end
 
 class LoadReplayState extends MusicBeatState
@@ -32,7 +21,7 @@ class LoadReplayState extends MusicBeatState
 	var selector:FlxText;
 	var curSelected:Int = 0;
 
-    var songs:Array<TrickyButton> = [];
+    var songs:Array<FreeplayState.SongMetadata> = [];
 
 	var controlsStrings:Array<String> = [];
     var actualNames:Array<String> = [];
