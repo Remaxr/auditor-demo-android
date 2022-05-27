@@ -1,60 +1,52 @@
 package;
 
+import MusicBeatState;
+import VideoPlayer;
+import flixel.*;
 import flixel.text.FlxText;
-import flixel.FlxState;
-import flixel.FlxG;
-import flixel.FlxSubState;
 
-import extension.webview.WebView;
+class VideoState extends MusicBeatState {
+    var nextState:FlxState;
+    var source:String = "videos/";
+    var sizething:Bool;
 
-using StringTools;
+    public function new(fileName:String = "ass",trans:FlxState, ?multiplySize:Bool = false) {
+        nextState = trans;
+        source = fileName;
+        sizething = multiplySize;
+        super();
+    }
+    override function create() {
+        FlxG.sound.music.stop();
+        var video = new VideoPlayer(0, 0, source);
+		video.finishCallback = () -> {
+			remove(video);
+            LoadingState.loadAndSwitchState(nextState);
+		}
+		video.ownCamera();
+        video.setGraphicSize(FlxG.width);
+		video.updateHitbox();
+		add(video);
+		video.play();
 
-class VideoState extends MusicBeatState
-{
-	public static var androidPath:String = 'file:///android_asset/';
+        var text:FlxText = new FlxText(5, FlxG.height - 23, 0, #if android "Tap the screen to skip" #else "Press Space To Skip" #end, 16);
+        add(text);
 
-	public var nextState:FlxState;
+        super.create();
+    }
+    override function update(elapsed:Float) {
+        super.update(elapsed);
 
-	var text:FlxText;
-
-	public function new(source:String, toTrans:FlxState)
-	{
-		super();
-
-		text = new FlxText(0, 0, 0, "tap to continue", 48);
-		text.screenCenter();
-		text.alpha = 0;
-		add(text);
-
-		nextState = toTrans;
-
-		//FlxG.autoPause = false;
-
-		WebView.onClose=onClose;
-		WebView.onURLChanging=onURLChanging;
-
-		WebView.open(androidPath + source + '.html', false, null, ['http://exitme(.*)']);
-	}
-
-	public override function update(dt:Float) {
-		for (touch in FlxG.touches.list)
-			if (touch.justReleased)
-				onClose();
-
-		super.update(dt);	
-	}
-
-	function onClose(){// not working
-		text.alpha = 0;
-		//FlxG.autoPause = true;
-		trace('close!');
-		trace(nextState);
-		FlxG.switchState(nextState);
-	}
-
-	function onURLChanging(url:String) {
-		text.alpha = 1;
-		if (url == 'http://exitme/') onClose(); // drity hack lol
-		trace("WebView is about to open: "+url);
-	}
+        for (touch in FlxG.touches.list)
+        {
+            if (touch.justPressed)
+            {
+                LoadingState.loadAndSwitchState(nextState);
+            }
+        }
+        if (FlxG.keys.justPressed.SPACE)
+        {
+            LoadingState.loadAndSwitchState(nextState);
+        }
+    }
 }
