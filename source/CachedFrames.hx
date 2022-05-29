@@ -43,7 +43,7 @@ class CachedFrames
 			return frames;
 
 		frames = new FlxAtlasFrames(graphic);
-		var Description = Assets.getText(Paths.file('images/$xmlName.xml', 'auditor'));
+		var Description = Assets.getText(Paths.file('images/$xmlName.xml', 'clown'));
 
 		var data:Access = new Access(Xml.parse(Description).firstElement());
 
@@ -104,6 +104,14 @@ class CachedFrames
     public function loadFrames()
     {
         sys.thread.Thread.create(() -> {  
+            toBeLoaded.set('sign','fourth/mech/Sign_Post_Mechanic');
+            /*toBeLoaded.set('left','hellclwn/Tricky/Left');
+            toBeLoaded.set('right','hellclwn/Tricky/right');
+            toBeLoaded.set('up','hellclwn/Tricky/Up');
+            toBeLoaded.set('down','hellclwn/Tricky/Down');
+            toBeLoaded.set('idle','hellclwn/Tricky/Idle');*/
+            toBeLoaded.set('grem','fourth/mech/HP GREMLIN');
+            toBeLoaded.set('cln','fourth/Clone');
             toBeLoaded.set('sanford','supremacy/sanford_fight');
             toBeLoaded.set('deimos','supremacy/deimos_fight');
             toBeLoaded.set('left','encavmaphobia/Audi/Left');
