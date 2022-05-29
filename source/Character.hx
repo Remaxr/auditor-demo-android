@@ -109,28 +109,56 @@ class Character extends FlxSprite
 				
 		
 				
-			case 'auditor':
-				tex = CachedFrames.cachedInstance.fromSparrow('idle','encavmaphobia/Audi/Idle');
+	case 'tricky':
+				tex = Paths.getSparrowAtlas('tricky','clown');
+				frames = tex;
+				animation.addByPrefix('idle', 'Idle', 24);
+				animation.addByPrefix('singUP', 'Sing Up', 24);
+				animation.addByPrefix('singRIGHT', 'Sing Right', 24);
+				animation.addByPrefix('singDOWN', 'Sing Down', 24);
+				animation.addByPrefix('singLEFT', 'Sing Left', 24); 
+				
+				addOffset("idle", 0, -75);
+				addOffset("singUP", 93, -76);
+				addOffset("singRIGHT", 16, -176);
+				addOffset("singLEFT", 103, -72);
+				addOffset("singDOWN", 6, -84);
+
+				playAnim('idle');
+				
+			case 'trickyH':
+				//tex = CachedFrames.cachedInstance.fromSparrow('idle','hellclwn/Tricky/Idle');
+				tex = Paths.getSparrowAtlas('hellclwn/Tricky/Idle', 'clown');
 
 				frames = tex;
 
 				graphic.persist = true;
 				graphic.destroyOnNoUse = false;
 
-				animation.addByPrefix('idle','idle', 24);
-				
+				animation.addByPrefix('idle','Phase 3 Tricky Idle', 12);
+		
 				// they have to be left right up down, in that order.
 				// cuz im too lazy to dynamicly get these names
 				// cry about it
 
 				otherFrames = new Array<Character>();
 
-				
-				otherFrames.push(new Character(100, 100, 'trickyHLeft'));
-				otherFrames.push(new Character(100, 100, 'trickyHRight'));
-				otherFrames.push(new Character(100, 100, 'trickyHUp'));
-				otherFrames.push(new Character(100, 100, 'trickyHDown'));
-				otherFrames.push(new Character(100, 100, 'trickyHRage'));
+				var left = new Character(100, 100, 'trickyHLeft');
+				left.addOffset("idle", -300, -1200);
+
+				var right = new Character(100, 100, 'trickyHRight');
+				right.addOffset("idle", -300, -1200);
+
+				var up = new Character(100, 100, 'trickyHUp');
+				up.addOffset("idle", -300, -1200);
+
+				var down = new Character(100, 100, 'trickyHDown');
+				down.addOffset("idle", -300, -1200);
+
+				otherFrames.push(left);
+				otherFrames.push(right);
+				otherFrames.push(up);
+				otherFrames.push(down);
 
 				animations.push(animation);
 				for (i in otherFrames)
@@ -138,93 +166,112 @@ class Character extends FlxSprite
 
 				trace('poggers');
 
-				addOffset("idle", 325, 40);
-				playAnim('idle');
-
+				addOffset("idle", 325, 0);
 				
+				addOffset("idle", -300, -1200);
+
+				setGraphicSize(Std.int(width * 4));
+				//width *= 4;
+				//height *= 4;
+				updateHitbox();
+
+
+				playAnim('idle');
 			case 'trickyHDown':
-				tex = CachedFrames.cachedInstance.fromSparrow('down','encavmaphobia/Audi/Down');
+				//tex = CachedFrames.cachedInstance.fromSparrow('down','hellclwn/Tricky/Down');
+				tex = Paths.getSparrowAtlas('hellclwn/Tricky/Down', 'clown');
 
 				frames = tex;
 
 				graphic.persist = true;
 				graphic.destroyOnNoUse = false;
 
-				animation.addByPrefix('idle','down', 24);
+				animation.addByPrefix('idle','Proper Down', 24);
 
-				addOffset("idle",345, 90);
+				addOffset("idle",475, -450);
+
+				setGraphicSize(Std.int(width * 4));
+				updateHitbox();
 
 				y -= 2000;
 				x -= 1400;
 
 				playAnim('idle');
-				
 			case 'trickyHUp':
-				tex = CachedFrames.cachedInstance.fromSparrow('up','encavmaphobia/Audi/Up');
-
+				//tex = CachedFrames.cachedInstance.fromSparrow('up','hellclwn/Tricky/Up');
+				tex = Paths.getSparrowAtlas('hellclwn/Tricky/Up', 'clown');
 
 				frames = tex;
 
 				graphic.persist = true;
 				graphic.destroyOnNoUse = false;
 
-				animation.addByPrefix('idle','up', 24);
+				animation.addByPrefix('idle','Proper Up', 24);
 
-				addOffset("idle", 305, 110);
+				addOffset("idle", 575, -450);
+
+				setGraphicSize(Std.int(width * 4));
+				updateHitbox();
 
 				y -= 2000;
 				x -= 1400;
 
 				playAnim('idle');
-			
 			case 'trickyHRight':
-				tex = CachedFrames.cachedInstance.fromSparrow('right','encavmaphobia/Audi/right');
+				//tex = CachedFrames.cachedInstance.fromSparrow('right','hellclwn/Tricky/right');
+				tex = Paths.getSparrowAtlas('hellclwn/Tricky/right', 'clown');
 
 				frames = tex;
 
 				graphic.persist = true;
 				graphic.destroyOnNoUse = false;
 
-				animation.addByPrefix('idle','right', 24);
+				animation.addByPrefix('idle','Proper Right', 24);
 
-				addOffset("idle",320, 0);
+				addOffset("idle",485, -300);
+
+				setGraphicSize(Std.int(width * 4));
+				updateHitbox();
 
 				y -= 2000;
 				x -= 1400;
 
 				playAnim('idle');
-					
 			case 'trickyHLeft':
-				tex = CachedFrames.cachedInstance.fromSparrow('left', 'encavmaphobia/Audi/Left');
+				//tex = CachedFrames.cachedInstance.fromSparrow('left','hellclwn/Tricky/Left');
+				tex = Paths.getSparrowAtlas('hellclwn/Tricky/Left', 'clown');
 
 				frames = tex;
 
 				graphic.persist = true;
 				graphic.destroyOnNoUse = false;
 
-				animation.addByPrefix('idle','left', 24);
+				animation.addByPrefix('idle','Proper Left', 24);
 
-				addOffset("idle", 550, 95);
+				addOffset("idle", 516, 25);
+
+				setGraphicSize(Std.int(width * 4));
+				updateHitbox();
 
 				y -= 2000;
 				x -= 1400;
 				
 				playAnim('idle');
-			
-			case 'trickyHRage':
-				tex = CachedFrames.cachedInstance.fromSparrow('BleatWorkPlzIfuckingwaste3hours', 'encavmaphobia/Audi/Rage');
 
+			case 'trickyMask':
+				tex = Paths.getSparrowAtlas('TrickyMask','clown');
 				frames = tex;
-
-				graphic.persist = true;
-				graphic.destroyOnNoUse = false;
-
-				animation.addByPrefix('idle', 'BleatWorkPlzIfuckingwaste3hours', 24);
-
-				addOffset("idle", 330, 100);
-
-				y -= 2000;
-				x -= 1400;
+				animation.addByPrefix('idle', 'Idle', 24);
+				animation.addByPrefix('singUP', 'Sing Up', 24);
+				animation.addByPrefix('singRIGHT', 'Sing Right', 24);
+				animation.addByPrefix('singDOWN', 'Sing Down', 24);
+				animation.addByPrefix('singLEFT', 'Sing Left', 24); 
+				
+				addOffset("idle", 0, -117);
+				addOffset("singUP", 93, -100);
+				addOffset("singRIGHT", 16, -164);
+				addOffset("singLEFT", 194, -95);
+				addOffset("singDOWN", 32, -168);
 
 				playAnim('idle');
 			
