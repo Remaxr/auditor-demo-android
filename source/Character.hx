@@ -148,7 +148,6 @@ class Character extends FlxSprite
 				addOffset('danceRight', 0);
 
 				playAnim('danceRight');
-
 			case 'dad':
 				// DAD ANIMATION LOADING CODE
 				tex = Paths.getSparrowAtlas('DADDY_DEAREST');
@@ -407,9 +406,10 @@ class Character extends FlxSprite
 				addOffset('scared', -4);
 
 				playAnim('idle');
-
+				
 				flipX = true;
-case 'bf-hell':
+				
+                case 'bf-hell':
 				var tex = Paths.getSparrowAtlas('hellclwn/BF/BF_3rd_phase','clown');
 				frames = tex;
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
@@ -441,8 +441,8 @@ case 'bf-hell':
 				playAnim('idle');
 
 				flipX = true;
-
-			case 'bf-car':
+				
+			  case 'bf-car':
 				var tex = Paths.getSparrowAtlas('bfCar');
 				frames = tex;
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
